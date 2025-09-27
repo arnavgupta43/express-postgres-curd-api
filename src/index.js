@@ -6,6 +6,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 const router = require("./routes/userRoutes");
 const errorHanlding = require("./middlewares/errrorHandler");
+const createUserTable = require("./data/createUserTable");
 // Middleware
 app.use(cors()); // Allow cross-origin requests
 app.use(express.json()); // Parse JSON requests
@@ -13,7 +14,8 @@ console.log("PORT from .env:", process.env.DB_PORT);
 console.log("PORT from .env:", process.env.DB_DATABASE);
 
 // Routes
-
+createUserTable();
+app.use("/api", router);
 //Testing
 app.get("/", async (req, res) => {
   const result = await pool.query("SELECT current_database()");
